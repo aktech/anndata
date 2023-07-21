@@ -25,7 +25,7 @@ jobs:
             cupy
         env:
           ACTIONS_STEP_DEBUG: true
-          CONDA: /home/runnerx/mamba
+          MAMBA_ROOT_PREFIX: /home/runnerx/mamba
 
       - name: Nvidia SMI sanity check
         run: nvidia-smi
