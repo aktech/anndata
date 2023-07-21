@@ -14,9 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Nvidia SMI sanity check
-        run: nvidia-smi
-
       - uses: mamba-org/setup-micromamba@v1
         with:
           log-level: debug
@@ -29,6 +26,10 @@ jobs:
         env:
           ACTIONS_STEP_DEBUG: true
           CONDA: /home/runnerx/mamba
+
+      - name: Nvidia SMI sanity check
+        run: nvidia-smi
+
       - name: Install AnnData
         run: pip install .[dev,test]
 
