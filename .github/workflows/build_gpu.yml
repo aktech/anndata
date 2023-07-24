@@ -2,6 +2,7 @@ name: AWS GPU
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -10,25 +11,26 @@ jobs:
     runs-on: "cirun-aws-gpu--${{ github.run_id }}"
     defaults:
       run:
-        shell: micromamba-shell {0}
+        shell: bash -el {0}
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: mamba-org/setup-micromamba@v1
+      - uses: actions/checkout@v3
         with:
-          log-level: debug
-          environment-name: anndatagpu
-          generate-run-shell: true
-          micromamba-version: "1.3.1-0"
-          create-args: >-
-            python=3.10
-            cupy
-        env:
-          ACTIONS_STEP_DEBUG: true
-          MAMBA_ROOT_PREFIX: /home/runnerx/mamba
+          fetch-depth: 0
 
       - name: Nvidia SMI sanity check
         run: nvidia-smi
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: 3.10
+          mamba-version: "*"
+          channels: conda-forge,defaults
+          channel-priority: true
+          activate-environment: anndata-gpu-ci
+          environment-file: etc/example-environment.yml
+      
+      - name: Install cupy
+        run: mamba install cupy
 
       - name: Install AnnData
         run: pip install .[dev,test]
