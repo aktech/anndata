@@ -27,7 +27,6 @@ jobs:
           channels: conda-forge,defaults
           channel-priority: true
           activate-environment: anndata-gpu-ci
-          environment-file: etc/example-environment.yml
       
       - name: Install cupy
         run: mamba install cupy
