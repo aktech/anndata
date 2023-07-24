@@ -23,6 +23,7 @@ jobs:
         with:
           python-version: 3.10
           mamba-version: "latest"
+          miniforge-version: "latest"
           channels: conda-forge,defaults
           channel-priority: true
           activate-environment: anndata-gpu-ci
