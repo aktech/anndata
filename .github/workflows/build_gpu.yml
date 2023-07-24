@@ -7,8 +7,7 @@ on:
 
 jobs:
   build:
-#     runs-on: "cirun-aws-gpu--${{ github.run_id }}"
-    runs-on: ubuntu-latest
+    runs-on: "cirun-aws-gpu--${{ github.run_id }}"
     defaults:
       run:
         shell: bash -el {0}
@@ -17,8 +16,8 @@ jobs:
         with:
           fetch-depth: 0
 
-#       - name: Nvidia SMI sanity check
-#         run: nvidia-smi
+      - name: Nvidia SMI sanity check
+        run: nvidia-smi
 
       - uses: conda-incubator/setup-miniconda@v2
         with:
